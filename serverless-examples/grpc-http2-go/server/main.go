@@ -12,7 +12,7 @@ import (
 )
 
 // Listening port, warning if you change it were, you must change it on your serverless container settings
-const defaultPort = 8080
+const defaultPort = 54329
 
 type server struct {
 	pb.UnimplementedGreeterServer
