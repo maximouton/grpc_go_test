@@ -50,7 +50,7 @@ jobs:
           set +e
           scw container container update "${{ secrets.SCW_DATA_CONTAINER_ID }}" \
             registry-image=rg.${{ secrets.SCW_DEFAULT_REGION }}.scw.cloud/${{ secrets.SCW_REGISTRY_NAMESPACE }}/planifique-data-service-dev:latest \
-            port=54329 \
+            port=8080 \
             min-scale=0 \
             max-scale=1 \
             memory-limit=128 \
