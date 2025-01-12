@@ -17,21 +17,21 @@ jobs:
       - name: Set up Scaleway CLI
         uses: scaleway/action-scw@v0
         with:
-            save-config: true
-            export-config: true
-            version: v2.24.0
-            access-key: ${{ secrets.SCW_ACCESS_KEY }}
-            secret-key: ${{ secrets.SCW_SECRET_KEY }}
-            default-project-id: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
-            default-organization-id: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }} 
-          
+          save-config: true
+          export-config: true
+          version: v2.24.0
+          access-key: ${{ secrets.SCW_ACCESS_KEY }}
+          secret-key: ${{ secrets.SCW_SECRET_KEY }}
+          default-project-id: ${{ secrets.SCW_DEFAULT_PROJECT_ID }}
+          default-organization-id: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}
 
-      # 3) Log in to Scaleway Container Registry
-      - name: Log in to Scaleway Registry
-        run: |
-          echo "${{ secrets.SCW_SECRET_KEY }}" | docker login \
-            rg.${{ secrets.SCW_DEFAULT_REGION }}.scw.cloud \
-            -u "${{ secrets.SCW_ACCESS_KEY }}" --password-stdin
+      # 3) Log in to Scaleway Registry
+      - name: Login to Scaleway Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: rg.${{ secrets.SCW_DEFAULT_REGION }}.scw.cloud
+          username: ${{ secrets.SCW_ACCESS_KEY }}
+          password: ${{ secrets.SCW_SECRET_KEY }}
 
       # 4) Build Docker image
       - name: Build Docker image
@@ -57,4 +57,3 @@ jobs:
             region=${{ secrets.SCW_DEFAULT_REGION }} 
           
           set -e
-          
